@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuzzy Logic AI Racer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vehicles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/visualizer.css') }}" />
+  </head>
+  <body>
+    <div id="game-container" class="show-visualizer">
+      <!-- Start Screen -->
+      <div id="start-screen" class="screen active">
+        <h1 class="neon-title">SOFT COMPUTING RACER</h1>
+        <p>Fuzzy Logic Traffic Simulation</p>
+        <div class="menu-buttons">
+          <button id="btn-start" class="btn primary">START ENGINE (Press SPACE)</button>
+          <button id="btn-leaderboard" class="btn secondary">
+            LEADERBOARD
+          </button>
+        </div>
+        <div class="instructions">
+          <p><strong>Game Controls:</strong></p>
+          <p>⬆️ Arrow Up - Accelerate</p>
+          <p>⬇️ Arrow Down - Brake</p>
+          <p>⬅️ Arrow Left - Move Left</p>
+          <p>➡️ Arrow Right - Move Right</p>
+          <p style="margin-top: 15px; color: var(--neon-purple);">
+            Race against 1 AI car that uses Python Fuzzy Logic!<br/>
+            Avoid cones and stones or crash!
+          </p>
+        </div>
+      </div>
+
+      <!-- Leaderboard Screen -->
+      <div id="leaderboard-screen" class="screen">
+        <h2 class="neon-title">TOP RACERS</h2>
+        <div id="leaderboard-list">Loading...</div>
+        <button id="btn-back-menu" class="btn secondary mt-4">MAIN MENU</button>
+      </div>
+
+      <!-- Game Interface -->
+      <div id="game-ui" class="screen">
+        <div id="hud">
+          <div class="stat">
+            <span class="label">SCORE</span><br /><span
+              id="score-val"
+              class="value"
+              >0</span
+            >
+          </div>
+          <div class="stat speedo">
+            <span class="label">SPEED</span><br /><span
+              id="speed-val"
+              class="value"
+              >0 MPH</span
+            >
+          </div>
+          <div class="stat ai-state">
+            <span class="label">AI STATE</span><br /><span
+              id="ai-val"
+              class="value"
+              style="color: var(--neon-purple)"
+              >Cruising</span
+            >
+          </div>
+        </div>
+
+        <div id="game-board">
+          <div id="road">
+            <!-- Road dividers added dynamically -->
+            <div class="lane-divider" style="left: 33.33%"></div>
+            <div class="lane-divider" style="left: 66.66%"></div>
+          </div>
+          <!-- Cars and Obstacles rendered here by JS -->
+          <div id="entities-layer"></div>
+        </div>
+
+      </div>
+
+      <!-- Fuzzy Visualizer Panel (always mounted in game-container, shown via JS) -->
+      <div id="fuzzy-visualizer">
+        <h3>FUZZY LOGIC TRACE</h3>
+
+        <div class="canvas-container">
+          <div class="canvas-title">Distance Memberships</div>
+          <canvas id="distGraph" width="220" height="60"></canvas>
+        </div>
+
+        <div class="canvas-container">
+          <div class="canvas-title">Speed Memberships</div>
+          <canvas id="speedGraph" width="220" height="60"></canvas>
+        </div>
+
+        <div class="trace-row highlight" style="flex-direction: column; align-items: flex-start">
+          <strong>Rule Fired:</strong>
+          <div id="trace-rule" style="color: var(--neon-blue); font-size: 0.75rem; line-height: 1.2; margin-top: 2px; margin-bottom: 5px;"></div>
+        </div>
+
+        <div class="trace-row highlight">
+          <strong>Defuzz. Speed:</strong>
+          <span id="trace-defuzz" style="color: var(--neon-red)">--</span>
+        </div>
+
+        <div class="trace-row highlight">
+          <strong>Action:</strong>
+          <span id="trace-dec" style="color: var(--neon-blue)">--</span> /
+          <span id="trace-path" style="color: var(--neon-purple)">--</span>
+        </div>
+
+        <div class="trace-row"><small>Active on nearest car</small></div>
+        <div id="trace-log"></div>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div id="game-over-screen" class="screen">
+        <h1 class="neon-title text-danger">SYSTEM CRASH</h1>
+        <p>Final Score: <span id="final-score">0</span></p>
+
+        <div id="save-score-form" class="mt-4">
+          <input
+            type="text"
+            id="player-name"
+            placeholder="INIT"
+            maxlength="4"
+          />
+          <button id="btn-save" class="btn primary small">SAVE SCORE</button>
+        </div>
+
+        <div class="menu-buttons mt-4">
+          <button id="btn-restart" class="btn primary">REBOOT (Press R)</button>
+          <button id="btn-menu-from-gameover" class="btn secondary">
+            MAIN MENU (Press Q)
+          </button>
+        </div>
+        
+        <div class="keyboard-hint">
+          <p style="margin-top: 30px; color: var(--neon-blue); font-size: 0.9rem;">
+            Press <strong>R</strong> to Restart or <strong>Q</strong> to Quit to Menu
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/obstacle.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+  </body>
+</html>

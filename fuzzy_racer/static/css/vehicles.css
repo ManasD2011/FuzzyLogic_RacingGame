@@ -1,0 +1,191 @@
+/* Entity Logic (CSS Shapes Only) */
+
+.entity {
+  position: absolute;
+  will-change: transform;
+  z-index: 50; /* Above everything */
+  pointer-events: auto;
+}
+
+/* Vehicles */
+.vehicle {
+  width: 46px;
+  height: 86px;
+  border-radius: 8px 8px 12px 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.8);
+}
+
+.player-car {
+  background: linear-gradient(180deg, #00b4db, #0083b0);
+  border: 1px solid #0ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.player-car::after {
+  /* Headlights */
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 5px;
+  width: 8px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  box-shadow:
+    28px 0 0 rgba(255, 255, 255, 0.9),
+    0 -15px 20px 10px rgba(255, 255, 255, 0.3),
+    28px -15px 20px 10px rgba(255, 255, 255, 0.3);
+}
+
+.ai-car {
+  background: linear-gradient(180deg, #f12711, #f5af19);
+  border: 1px solid #ff9800;
+}
+
+.ai-car.ai-variant {
+  background: linear-gradient(180deg, #8e2de2, #4a00e0);
+  border-color: #b388ff;
+}
+
+.ai-car::before {
+  /* Racing Stripe */
+  content: "";
+  position: absolute;
+  left: 40%;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Wheels via pseudo-elements would require extra wrappers, so we just use a trick or append divs via JS.
+   We will append them via JS to keep CSS clean. */
+.wheel {
+  position: absolute;
+  width: 8px;
+  height: 20px;
+  background: #000;
+  border-radius: 3px;
+  box-shadow: inset 1px 0 3px #444;
+}
+
+.wheel.tl {
+  top: 12px;
+  left: -4px;
+}
+.wheel.tr {
+  top: 12px;
+  right: -4px;
+}
+.wheel.bl {
+  bottom: 12px;
+  left: -4px;
+}
+.wheel.br {
+  bottom: 12px;
+  right: -4px;
+}
+
+/* Obstacles */
+.obstacle {
+  width: 60px;
+  height: 30px;
+}
+
+.cone {
+  width: 30px;
+  height: 50px;
+  background: linear-gradient(180deg, 
+    #ff6b00 0%, 
+    #ff8800 40%,
+    #fff 42%,
+    #fff 48%,
+    #ff8800 50%,
+    #ff6b00 100%
+  );
+  border-radius: 50% 50% 5% 5% / 60% 60% 40% 40%;
+  box-shadow: 
+    0 5px 10px rgba(0, 0, 0, 0.6),
+    inset 0 -5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cone::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stone {
+  width: 45px;
+  height: 35px;
+  background: linear-gradient(135deg, 
+    #6b6b6b 0%,
+    #8b8b8b 30%,
+    #5a5a5a 70%,
+    #4a4a4a 100%
+  );
+  border-radius: 40% 60% 55% 45% / 50% 60% 40% 50%;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.8),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.4),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.stone::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  height: 30%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* Explosion */
+.explosion-fx {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle,
+    #fff,
+    #ffeb3b 20%,
+    #ff9800 40%,
+    #ff1744 70%,
+    transparent
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  animation: blast 2.5s ease-out forwards;
+  z-index: 100;
+  box-shadow: 0 0 50px #ff1744, 0 0 100px #ff9800;
+}
+
+@keyframes blast {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(2.0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.5);
+    opacity: 0;
+  }
+}

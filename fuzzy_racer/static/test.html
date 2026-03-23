@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Rendering Test</title>
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            padding: 20px;
+        }
+        #test-container {
+            position: relative;
+            width: 600px;
+            height: 800px;
+            background: #1a1a1a;
+            border: 2px solid #0ff;
+        }
+        .vehicle {
+            position: absolute;
+            width: 46px;
+            height: 86px;
+            border-radius: 8px 8px 12px 12px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.8);
+        }
+        .player-car {
+            background: linear-gradient(180deg, #00b4db, #0083b0);
+            border: 1px solid #0ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+        .ai-car {
+            background: linear-gradient(180deg, #f12711, #f5af19);
+            border: 1px solid #ff9800;
+        }
+        .wheel {
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: #000;
+            border-radius: 3px;
+        }
+        .wheel.tl { top: 12px; left: -4px; }
+        .wheel.tr { top: 12px; right: -4px; }
+        .wheel.bl { bottom: 12px; left: -4px; }
+        .wheel.br { bottom: 12px; right: -4px; }
+    </style>
+</head>
+<body>
+    <h1 style="color: #0ff;">Car Rendering Test</h1>
+    <div id="test-container">
+        <!-- Player Car -->
+        <div class="vehicle player-car" style="transform: translate3d(277px, 600px, 0);">
+            <div class="wheel tl"></div>
+            <div class="wheel tr"></div>
+            <div class="wheel bl"></div>
+            <div class="wheel br"></div>
+        </div>
+        
+        <!-- AI Car -->
+        <div class="vehicle ai-car" style="transform: translate3d(100px, 100px, 0);">
+            <div class="wheel tl"></div>
+            <div class="wheel tr"></div>
+            <div class="wheel bl"></div>
+            <div class="wheel br"></div>
+        </div>
+    </div>
+    <p style="color: #fff;">If you can see a blue car and red car above, rendering works!</p>
+</body>
+</html>
