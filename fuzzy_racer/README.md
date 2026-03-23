@@ -30,7 +30,7 @@ fuzzy_racer/
 
 1. **Navigate to the project folder:**
    ```bash
-   cd C:\Users\VIT\Downloads\fuzzy_racer
+   cd fuzzy_racer
    ```
 
 2. **Install required package:**
